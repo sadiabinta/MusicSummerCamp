@@ -2,24 +2,29 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
+import { useState } from "react";
 
 
 const Register = () => {
-    const { register, handleSubmit } = useForm();
-    const {createUser,updateUserProfile}=useAuth();
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { createUser, updateUserProfile } = useAuth();
+    const [pass,setPass]=useState();
+    const [confirmPass,setConfirmPass]=useState();
     const onSubmit = data => {
         console.log(data);
-        createUser(data.email,data.password)
-        .then(result=>{
-            const loggedUser=result.user;
-            console.log('logged user',loggedUser)
-            updateUserProfile(data.name,data.photo)
-            .then(()=>{
-                const savedUser={name:data.name,email:data.email}
-                console.log('saved user' ,savedUser)
+        setPass(data.password);
+        setConfirmPass(data.confirmPassword);
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log('logged user', loggedUser)
+                updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        const savedUser = { name: data.name, email: data.email }
+                        console.log('saved user', savedUser)
+                    })
             })
-        })
-        .catch(error=>console.log(error))
+            .catch(error => console.log(error))
 
     };
     return (
@@ -45,13 +50,22 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text text-orange-950 text-xl font-semibold">Password*</span>
                         </label>
-                        <input type="password" placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", { required: true, minLength: 6 })} />
+                        <input type="password" placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", {
+                            required: true, minLength: 6, maxLength: 20,
+                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
+                        })} />
+                        {errors.password?.type === 'required' && <p role="alert">Password is required</p>}
+                        {errors.password?.type === 'minLength' && <span className="text-red-600">password must be 6 characters</span>}
+                        {errors.password?.type === 'pattern' && <span className="text-red-600">password must have at least one uppercase and one special character</span>}
                     </div>
                     <div className="form-control w-1/3  mx-16">
                         <label className="label">
                             <span className="label-text text-orange-950 text-xl font-semibold">Confirm Password*</span>
                         </label>
-                        <input type="password" placeholder="Confirm Password" className="input input-bordered w-full bg-orange-100" {...register("confirm-password", { required: true, minLength: 6 })} />
+                        <input type="password" placeholder="Confirm Password" className="input input-bordered w-full bg-orange-100" {...register("confirmPassword", { required: true, minLength: 6 })} />
+                        {
+                                pass !== confirmPass && <span className="text-red-600">password need to be Matched!!</span>
+                            }
                     </div>
                 </div>
                 <div className="flex justify-center">
@@ -73,7 +87,7 @@ const Register = () => {
                             <option value={"other"}>Other</option>
                         </select>
                     </div>
-                    
+
                 </div>
                 <div className="flex justify-center">
                     <div className="form-control w-1/3  mx-16">
@@ -90,8 +104,8 @@ const Register = () => {
                     </div>
                 </div>
                 <div className="form-control items-center">
-                <input type="submit" className="btn bg-orange-950 my-10 text-white" value='Register Now' />
-                <SocialLogin></SocialLogin>
+                    <input type="submit" className="btn bg-orange-950 my-10 text-white" value='Register Now' />
+                    <SocialLogin></SocialLogin>
                 </div>
                 <p className="text-center">Already Registered? <Link className="text-orange-600" to='/login'>Login</Link></p>
             </form>
