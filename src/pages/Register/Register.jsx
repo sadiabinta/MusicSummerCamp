@@ -1,10 +1,26 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const Register = () => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const {createUser,updateUserProfile}=useAuth();
+    const onSubmit = data => {
+        console.log(data);
+        createUser(data.email,data.password)
+        .then(result=>{
+            const loggedUser=result.user;
+            console.log('logged user',loggedUser)
+            updateUserProfile(data.name,data.photo)
+            .then(()=>{
+                const savedUser={name:data.name,email:data.email}
+                console.log('saved user' ,savedUser)
+            })
+        })
+        .catch(error=>console.log(error))
+
+    };
     return (
         <div>
             <h2 className="text-3xl font-semibold text-center text-orange-950">Please Register!</h2>
