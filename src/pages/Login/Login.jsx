@@ -2,23 +2,24 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
-    const {signIn,googleSignIn}=useAuth();
+    const { signIn } = useAuth();
     const onSubmit = data => {
         console.log(data);
-        signIn(data.email,data.password)
-        .then(result=>{
-            const user=result.user;
-            console.log(user);
-        })
-        .catch(error=>console.log(error))
+        signIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error))
     };
-    const [checked,setChecked]=useState(false);
+    const [checked, setChecked] = useState(false);
 
-    const handleCheck=()=>{
+    const handleCheck = () => {
         setChecked(!checked);
     }
     return (
@@ -37,7 +38,7 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text text-orange-950 text-xl font-semibold">Password*</span>
                         </label>
-                        <input type={!checked  ? "password" :"text"} placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", { required: true, minLength: 6 })} />
+                        <input type={!checked ? "password" : "text"} placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", { required: true, minLength: 6 })} />
                     </div>
                     <div className="form-control">
                         <label className="label cursor-pointer">
@@ -48,6 +49,7 @@ const Login = () => {
                 </div>
                 <div className="form-control items-center">
                     <input type="submit" className="btn bg-orange-950 my-10 w-1/3 text-white" value='Login' />
+                    <SocialLogin></SocialLogin>
                 </div>
                 <p className="text-center">Not Registered? <Link className="text-orange-600" to='/register'>Create An Account</Link></p>
             </form>
