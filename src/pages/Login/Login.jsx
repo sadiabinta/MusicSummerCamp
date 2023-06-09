@@ -1,11 +1,21 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const {signIn,googleSignIn}=useAuth();
+    const onSubmit = data => {
+        console.log(data);
+        signIn(data.email,data.password)
+        .then(result=>{
+            const user=result.user;
+            console.log(user);
+        })
+        .catch(error=>console.log(error))
+    };
     const [checked,setChecked]=useState(false);
 
     const handleCheck=()=>{
@@ -27,7 +37,7 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text text-orange-950 text-xl font-semibold">Password*</span>
                         </label>
-                        <input type="password" placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", { required: true, minLength: 6 })} />
+                        <input type={!checked  ? "password" :"text"} placeholder="Password" className="input input-bordered w-full bg-orange-100" {...register("password", { required: true, minLength: 6 })} />
                     </div>
                     <div className="form-control">
                         <label className="label cursor-pointer">

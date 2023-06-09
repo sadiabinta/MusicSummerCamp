@@ -1,12 +1,17 @@
 'use client';
-import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from '../../assets/summer-music-logo.png'
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 
 const NavHeader = () => {
-  const [user,setUser]=useState();
+  const {user,logOut}=useAuth();
+  const handleLogOut=()=>{
+    logOut()
+    .then(()=>{})
+    .catch(error=>console.log(error))
+  }
   return (
     <Navbar
       fluid
@@ -26,20 +31,20 @@ const NavHeader = () => {
         <Link to='/'>Home</Link>
         <Link to='/instructors'>Instructors</Link>
         <Link to='/classes'>Classes</Link>
-        <Link to='/dashboard'>Dashboard</Link>
+        {user && <Link to='/dashboard'>Dashboard</Link>}
       </Navbar.Collapse>
       { user?
       <div className="flex md:order-2">
         <Dropdown
           inline
-          label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />}
+          label={<Avatar alt="User settings" img={user.photoURL} rounded />}
         >
           <Dropdown.Header>
             <span className="block text-sm">
-              Bonnie Green
+              {user.displayName}
             </span>
             <span className="block truncate text-sm font-medium">
-              name@flowbite.com
+              {user.email}
             </span>
           </Dropdown.Header>
           <Dropdown.Item>
@@ -53,13 +58,13 @@ const NavHeader = () => {
           </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item>
-            Sign out
+            <Link onClick={handleLogOut}>Sign Out</Link>
           </Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
       :
-      <button className="btn px-16 bg-lime-700 text-white">Login</button>}
+      <Link to='/login'><button className="btn px-16 bg-lime-700 text-white">Login</button></Link>}
       
     </Navbar>
   );
