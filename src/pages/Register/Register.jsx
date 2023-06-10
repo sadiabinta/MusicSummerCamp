@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 import { useState } from "react";
@@ -10,6 +10,7 @@ const Register = () => {
     const { createUser, updateUserProfile } = useAuth();
     const [pass,setPass]=useState();
     const [confirmPass,setConfirmPass]=useState();
+    // const navigate=useNavigate();
     const onSubmit = data => {
         console.log(data);
         setPass(data.password);

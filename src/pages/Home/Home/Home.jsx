@@ -1,4 +1,5 @@
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
+import Slider from "../Slider/Slider";
 
 
 const Home = () => {
@@ -6,8 +7,7 @@ const Home = () => {
         <Flowbite>
       <DarkThemeToggle />
       <div>
-            <h1>Home</h1>
-            <input type="checkbox" className="toggle" checked />
+            <Slider></Slider>
         </div>
     </Flowbite>
         
