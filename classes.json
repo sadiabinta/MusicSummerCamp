@@ -1,0 +1,95 @@
+{
+    "classes": [
+      {
+        "className": "Guitar Fundamentals",
+        "classImage": "guitar.jpg",
+        "instructorName": "John Smith",
+        "instructorEmail": "john@example.com",
+        "availableSeats": 15,
+        "price": 50,
+        "status": "Open"
+      },
+      {
+        "className": "Piano for Beginners",
+        "classImage": "piano.jpg",
+        "instructorName": "Alice Johnson",
+        "instructorEmail": "alice@example.com",
+        "availableSeats": 10,
+        "price": 60,
+        "status": "Open"
+      },
+      {
+        "className": "Drums Workshop",
+        "classImage": "drums.jpg",
+        "instructorName": "Michael Davis",
+        "instructorEmail": "michael@example.com",
+        "availableSeats": 5,
+        "price": 70,
+        "status": "Open"
+      },
+      {
+        "className": "Vocal Training",
+        "classImage": "vocal.jpg",
+        "instructorName": "Sarah Thompson",
+        "instructorEmail": "sarah@example.com",
+        "availableSeats": 8,
+        "price": 55,
+        "status": "Open"
+      },
+      {
+        "className": "Saxophone Masterclass",
+        "classImage": "saxophone.jpg",
+        "instructorName": "David Wilson",
+        "instructorEmail": "david@example.com",
+        "availableSeats": 12,
+        "price": 65,
+        "status": "Open"
+      },
+      {
+        "className": "Bass Guitar Workshop",
+        "classImage": "bass-guitar.jpg",
+        "instructorName": "Emily Davis",
+        "instructorEmail": "emily@example.com",
+        "availableSeats": 6,
+        "price": 75,
+        "status": "Open"
+      },
+      {
+        "className": "Songwriting and Composition",
+        "classImage": "composition.jpg",
+        "instructorName": "James Anderson",
+        "instructorEmail": "james@example.com",
+        "availableSeats": 10,
+        "price": 60,
+        "status": "Open"
+      },
+      {
+        "className": "Electronic Music Production",
+        "classImage": "electronic-music.jpg",
+        "instructorName": "Olivia Brown",
+        "instructorEmail": "olivia@example.com",
+        "availableSeats": 8,
+        "price": 70,
+        "status": "Open"
+      },
+      {
+        "className": "Violin Lessons",
+        "classImage": "violin.jpg",
+        "instructorName": "Daniel Adams",
+        "instructorEmail": "daniel@example.com",
+        "availableSeats": 4,
+        "price": 80,
+        "status": "Open"
+      },
+      {
+        "className": "Music Theory Crash Course",
+        "classImage": "music-theory.jpg",
+        "instructorName": "Sophia Wilson",
+        "instructorEmail": "sophia@example.com",
+        "availableSeats": 15,
+        "price": 45,
+        "status": "Open"
+      }
+    ]
+  }
+  

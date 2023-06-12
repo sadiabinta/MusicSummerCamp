@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
@@ -8,12 +8,17 @@ import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 const Login = () => {
     const { register, handleSubmit } = useForm();
     const { signIn } = useAuth();
+    const navigate=useNavigate();
+    const location=useLocation();
+
+    const from=location.state?.from?.pathname ||'/';
     const onSubmit = data => {
         console.log(data);
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(from, {replace:true});
             })
             .catch(error => console.log(error))
     };

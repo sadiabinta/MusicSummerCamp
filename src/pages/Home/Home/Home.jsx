@@ -1,5 +1,6 @@
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import Slider from "../Slider/Slider";
+import PopularClass from "./PopularClass/PopularClass";
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <DarkThemeToggle />
       <div>
             <Slider></Slider>
+            <PopularClass></PopularClass>
         </div>
     </Flowbite>
         

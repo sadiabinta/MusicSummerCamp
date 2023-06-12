@@ -3,10 +3,13 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from '../../assets/summer-music-logo.png'
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useCart from "../../hooks/useCart";
+import {FaShoppingCart} from 'react-icons/fa';
 
 
 const NavHeader = () => {
   const {user,logOut}=useAuth();
+  const [cart]=useCart();
   const handleLogOut=()=>{
     logOut()
     .then(()=>{})
@@ -35,6 +38,9 @@ const NavHeader = () => {
       </Navbar.Collapse>
       { user?
       <div className="flex md:order-2">
+        <Link to='/'><button className="btn gap-2"><FaShoppingCart></FaShoppingCart>
+        <div className="badge badge-secondary">+{cart?.length || 0 }</div>
+        </button></Link>
         <Dropdown
           inline
           label={<Avatar alt="User settings" img={user.photoURL} rounded />}
