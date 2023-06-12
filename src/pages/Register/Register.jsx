@@ -3,16 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register,reset, formState: { errors }, handleSubmit } = useForm();
     const { createUser, updateUserProfile } = useAuth();
+    const navigate=useNavigate();
     const [pass,setPass]=useState();
     const [confirmPass,setConfirmPass]=useState();
     // const navigate=useNavigate();
     const onSubmit = data => {
-        console.log(data);
         setPass(data.password);
         setConfirmPass(data.confirmPassword);
         createUser(data.email, data.password)
@@ -21,8 +22,29 @@ const Register = () => {
                 console.log('logged user', loggedUser)
                 updateUserProfile(data.name, data.photo)
                     .then(() => {
-                        const savedUser = { name: data.name, email: data.email }
-                        console.log('saved user', savedUser)
+                        const savedUser = { name: data.name, email: data.email}
+                        fetch('http://localhost:5000/users',{
+                            method: 'POST',
+                            headers:{
+                                'content-type':'application/json'
+                            },
+                            body:JSON.stringify(savedUser)
+                        })
+                        .then(res=>res.json())
+                        .then(data=>{
+                            if(data.insertedId){
+                                reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                          navigate('/')
+                            }
+                        })
+                        
                     })
             })
             .catch(error => console.log(error))

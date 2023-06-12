@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useCart from "../../hooks/useCart";
 import {FaShoppingCart} from 'react-icons/fa';
 
-
+ 
 const NavHeader = () => {
   const {user,logOut}=useAuth();
   const [cart]=useCart();
@@ -34,7 +34,7 @@ const NavHeader = () => {
         <Link to='/'>Home</Link>
         <Link to='/instructors'>Instructors</Link>
         <Link to='/classes'>Classes</Link>
-        {user && <Link to='/dashboard'>Dashboard</Link>}
+        {user && <Link to='/dashboard/mycourse'>Dashboard</Link>}
       </Navbar.Collapse>
       { user?
       <div className="flex md:order-2">

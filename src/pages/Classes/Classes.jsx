@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 
 const Classes = () => {
@@ -9,6 +10,7 @@ const Classes = () => {
     const [classes,setClasses]=useState();
     const [loading,setLoading]=useState(true);
     const [added,setAdded]=useState(false);
+    const [,refetch]=useCart();
     const navigate=useNavigate();
     const location=useLocation();
     useEffect(()=>{
@@ -34,6 +36,7 @@ const Classes = () => {
             .then(res=>res.json())
             .then(data=>{
                 if(data.insertedId){
+                    refetch();
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -113,7 +116,7 @@ const Classes = () => {
                 {course.price}
                 </td>
                 <td className="px-6 py-4">
-                    <button className={`${added? 'disabled':'btn bg-orange-900 text-white'}`} onClick={()=>handleAddToCart(course)} 
+                    <button className=" btn bg-orange-900 text-white" onClick={()=>handleAddToCart(course)} 
                     
                     >Select</button>
                 </td>
