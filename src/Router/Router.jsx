@@ -8,11 +8,14 @@ import Classes from "../pages/Classes/Classes";
 import Dashboard from "../layout/Main/DashBoard/Dashboard";
 import MyCourse from "../pages/Dashboard/MyCourse/MyCourse";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement:<ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",
@@ -39,11 +42,16 @@ export const router = createBrowserRouter([
     {
         path:'dashboard',
         element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'mycourse',
                 element:<MyCourse></MyCourse>
-            }
+            },
+            {
+                path:'allusers',
+                element:<AllUsers></AllUsers>
+            },
         ]
     }
 ]);
