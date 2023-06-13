@@ -1,4 +1,4 @@
-import { DarkThemeToggle} from "flowbite-react";
+
 import Slider from "../Slider/Slider";
 import PopularClass from "./PopularClass/PopularClass";
 import { useEffect, useState } from "react";
