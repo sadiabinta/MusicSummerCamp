@@ -1,8 +1,16 @@
+
 import { Link, Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
     const isAdmin = true;
+    // axios.get('http://localhost:5000/users/admin/:email',{
+    //     headers:{
+    //         authorization:`Bearer ${localStorage.getItem('access-token')}`
+    //     }
+    // })
+    // .then(res=>console.log(res.data))
+    // .catch(error=>console.log(error))
     return (
         <div>
             <div className="drawer lg:drawer-open">
