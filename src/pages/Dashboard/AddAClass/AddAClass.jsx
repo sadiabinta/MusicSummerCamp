@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 
 const AddAClass = () => {
     const {user}=useAuth();
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (classData,event) => {
+    const { register, handleSubmit,reset } = useForm();
+    const onSubmit = (classData) => {
         console.log(classData);
         fetch('http://localhost:5000/classes/instructor',{
             method:'POST',
@@ -29,7 +29,7 @@ const AddAClass = () => {
                     timer: 1500
                   })
             }
-            //event.target.reset();
+            reset();
         })
     };
     return (

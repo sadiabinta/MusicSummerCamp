@@ -1,6 +1,7 @@
 import { FaTrash } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 const MyCourse = () => {
@@ -41,7 +42,7 @@ const MyCourse = () => {
             <div className="flex justify-evenly h-16 font-bold">
                 <h1>Total Added Course:{cart.length}</h1>
                 <h1>Total Due:${total}</h1>
-                <button className="btn">Make Payment</button>
+                <Link to='/dashboard/payment'><button  className="btn">Make Payment</button></Link>
             </div>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

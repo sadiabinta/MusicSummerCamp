@@ -2,6 +2,7 @@
 import Slider from "../Slider/Slider";
 import PopularClass from "./PopularClass/PopularClass";
 import { useEffect, useState } from "react";
+import PopularInstructor from "./PopularInstructor/PopularInstructor";
 
 
 
@@ -20,12 +21,13 @@ const Home = () => {
         setDarkMode(!darkMode);
     };
     return (
-        <div className="container">
+        <div className="">
         <button onClick={toggleDarkMode} className="btn bg-black text-white">Toggle Dark Mode</button>
         
             <div className={`${darkMode ? 'bg-black text-white' : ''}`}>
                 <Slider></Slider>
                 <PopularClass></PopularClass>
+                <PopularInstructor></PopularInstructor>
             </div>
 
         </div>
