@@ -31,6 +31,25 @@ const AllUsers = () => {
             }
         })
     }
+    const handleMakeInstructor=id=>{
+        fetch(`http://localhost:5000/users/instructor/${id}`,{
+            method:'PATCH'
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+            if(data.modifiedCount){
+                refetch();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Role Changed to INSTRUCTOR',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+        })
+    }
     return (
         <div>
             <h3 className="font-bold">Total User:{users.length}</h3>
@@ -72,7 +91,7 @@ const AllUsers = () => {
                 <button onClick={()=>handleMakeAdmin(user._id)} className="btn btn-ghost btn-sm"><FaUser></FaUser></button>
                 }
                 {user.role === 'instructor' ? 'instructor' : 
-                <button className="btn btn-ghost btn-sm"><FaUser></FaUser></button>
+                <button onClick={()=>handleMakeInstructor(user._id)} className="btn btn-ghost btn-sm"><FaUser></FaUser></button>
                 }
                 </td>
                 <td className="px-6 py-4">
