@@ -1,18 +1,51 @@
-
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 
 const Dashboard = () => {
-    const isAdmin = false;
+    const [isAdmin,setIsAdmin]=useState();
+    const {user,loading}=useAuth();
+    if(loading){
+        console.log('loading...')
+    }
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users/${user?.email}`
+    ,{
+                headers:{
+                            authorization:`Bearer ${localStorage.getItem('access-token')}`
+                        }
+            }
+            )
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                setIsAdmin(data.admin)
+            })
+    },[])
+    // const {data : isAdmin}=useQuery(['isAdmin'], async ()=>{
+    //     if(user){
+    //         const res= await fetch(`http://localhost:5000/users/admin/${user?.email}`,{
+    //         headers:{
+    //                     authorization:`Bearer ${localStorage.getItem('access-token')}`
+    //                 }
+    //     })
+    //     return res.json();
+    //     }
+    // })
+    //const [isAdmin]=UseAdmin();
 
-    axios.get('http://localhost:5000/users',{
-        headers:{
-            'Authorization':`Bearer ${localStorage.getItem('access-token')}`
-        }
-    })
-    .then(res=>console.log(res.data))
-    .catch(error=>console.log(error))
+    // const isAdmin = true;
+    // const {user}=useAuth();
+    // axios.get(`http://localhost:5000/users/auth/:${user?.email}`,{
+    //     headers:{
+    //         authorization:`Bearer ${localStorage.getItem('access-token')}`
+    //     }
+    // })
+    // .then(res=>console.log(res.data))
+    // .catch(error=>console.log(error))
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -27,11 +60,11 @@ const Dashboard = () => {
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                         {
-                            isAdmin ? <>
+                            isAdmin? <>
                             <li><Link to='/dashboard/home'>Admin Home</Link></li>
                                     <li><Link to='/dashboard/allclasses'>Manage Classes</Link></li>
                                     <li><Link to='/dashboard/allusers'>Manage Users</Link></li>
-                            </> :
+                            </> : 
                                 <>
                                     <li><Link to='/'>User Home</Link></li>
                                     <li><Link to='/'>My Selected Classes</Link></li>
